@@ -5,10 +5,10 @@ import Auth from "routes/Auth";
 import Navigation from "components/Navigation";
 import Profile from "routes/Profile";
 
-const AppRouter = ({ userObj, isLoggedIn }) => {
+const AppRouter = ({ refreshUser, userObj, isLoggedIn }) => {
   return (
     <BrowserRouter>
-      {isLoggedIn && <Navigation />}
+      {isLoggedIn && <Navigation userObj={userObj} />}
       <Routes>
         {isLoggedIn ? (
           <>
@@ -18,7 +18,12 @@ const AppRouter = ({ userObj, isLoggedIn }) => {
             />
             <Route
               path={`${process.env.PUBLIC_URL}/profile`}
-              element={<Profile />}
+              element={
+                <Profile
+                  refreshUser={refreshUser}
+                  userObj={userObj}
+                />
+              }
             />
           </>
         ) : (

@@ -7,6 +7,7 @@ const Home = ({ userObj }) => {
   const [nweet, setNweet] = useState("");
   const [nweets, setNweets] = useState([]);
   const [url, setUrl] = useState("");
+  const [fileName, setFileName] = useState("");
 
   useEffect(() => {
     const getNweets = async () => {
@@ -46,6 +47,7 @@ const Home = ({ userObj }) => {
     await dbService.collection("nweets").add(nweetObj);
     setNweet("");
     setUrl("");
+    setFileName("");
   };
 
   const onChange = (e) => {
@@ -68,10 +70,12 @@ const Home = ({ userObj }) => {
       setUrl(result);
     };
     setUrl(reader.readAsDataURL(file));
+    setFileName(file);
   };
 
   const onClearUrl = (e) => {
     setUrl("");
+    setFileName("");
   };
 
   return (
@@ -85,7 +89,7 @@ const Home = ({ userObj }) => {
           maxLength={120}
         />
         <input onChange={onFileChange} type="file" accept="image/*" />
-        <img src={url} alt={nweet} />
+        <img src={url} alt={fileName} />
         <input type="submit" value="Ntweet" />
         {url && <button onClick={onClearUrl}>Annuler</button>}
       </form>
