@@ -7,8 +7,10 @@ const Nweet = ({ nweetObj, isOwner }) => {
   const onDeleteClick = async () => {
     const ok = window.confirm("Voulez-vous supprimer ce nweet ?");
     if (ok) {
+      if (nweetObj.fileUrl) {
+        await storageService.refFromURL(nweetObj.fileUrl).delete();
+      }
       await dbService.doc(`nweets/${nweetObj.id}`).delete();
-      await storageService.refFromURL(nweetObj.fileUrl).delete();
     }
   };
   const toggleEditing = () => setEditing((prev) => !prev);
