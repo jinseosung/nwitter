@@ -85,6 +85,7 @@ const Home = ({ userObj }) => {
           maxLength={120}
         />
         <input onChange={onFileChange} type="file" accept="image/*" />
+        <img src={url} alt={nweet} />
         <input type="submit" value="Ntweet" />
         {url && <button onClick={onClearUrl}>Annuler</button>}
       </form>
