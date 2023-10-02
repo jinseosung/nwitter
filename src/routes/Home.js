@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { dbService } from "fbase";
+import { dbService, storageService } from "fbase";
+import { v4 as uuidv4 } from "uuid";
 import Nweet from "components/Nweet";
 
 const Home = ({ userObj }) => {
   const [nweet, setNweet] = useState("");
   const [nweets, setNweets] = useState([]);
+  const [url, setUrl] = useState("");
 
   useEffect(() => {
     const getNweets = async () => {
@@ -29,12 +31,21 @@ const Home = ({ userObj }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    await dbService.collection("nweets").add({
+    let fileUrl = "";
+    if (url !== "") {
+      const fileRef = storageService.ref().child(`${userObj.uid}/${uuidv4()}`);
+      const response = await fileRef.putString(url, "data_url");
+      fileUrl = await response.ref.getDownloadURL();
+    }
+    const nweetObj = {
       text: nweet,
       createdAt: Date.now(),
       creatorId: userObj.uid,
-    });
+      fileUrl,
+    };
+    await dbService.collection("nweets").add(nweetObj);
     setNweet("");
+    setUrl("");
   };
 
   const onChange = (e) => {
@@ -42,6 +53,25 @@ const Home = ({ userObj }) => {
       target: { value },
     } = e;
     setNweet(value);
+  };
+
+  const onFileChange = (e) => {
+    const {
+      target: { files },
+    } = e;
+    const file = files[0];
+    const reader = new FileReader();
+    reader.onloadend = (fin) => {
+      const {
+        currentTarget: { result },
+      } = fin;
+      setUrl(result);
+    };
+    setUrl(reader.readAsDataURL(file));
+  };
+
+  const onClearUrl = (e) => {
+    setUrl("");
   };
 
   return (
@@ -54,7 +84,9 @@ const Home = ({ userObj }) => {
           placeholder="Dis-moi tout"
           maxLength={120}
         />
+        <input onChange={onFileChange} type="file" accept="image/*" />
         <input type="submit" value="Ntweet" />
+        {url && <button onClick={onClearUrl}>Annuler</button>}
       </form>
       <div>
         {nweets &&
