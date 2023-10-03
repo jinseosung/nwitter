@@ -1,6 +1,31 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { authService, dbService } from "fbase";
+import styled from "styled-components";
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.9);
+  padding-bottom: 2.3em;
+  width: 100%;
+  gap: 0.8em;
+`;
+
+const Input = styled.input`
+  width: 100%;
+`;
+
+const SubmitInput = styled.input`
+  width: 100%;
+  background-color: #00acee;
+  color: white;
+`;
+
+const LogOutBtn = styled.button`
+  margin-top: 3.7em;
+  background-color: tomato;
+`;
 
 const Profile = ({ refreshUser, userObj }) => {
   const navigate = useNavigate();
@@ -40,16 +65,16 @@ const Profile = ({ refreshUser, userObj }) => {
 
   return (
     <>
-      <form onSubmit={onSubmit}>
-        <input
+      <Form onSubmit={onSubmit}>
+        <Input
           value={newDisplayName}
           onChange={onChange}
           type="text"
           placeholder="Ecrivez nouveau nom du profile"
         />
-        <input type="submit" value="Modifier mon profile" />
-      </form>
-      <button onClick={onLogOutClick}>Se déconnecter</button>
+        <SubmitInput type="submit" value="Modifier mon profile" />
+      </Form>
+      <LogOutBtn onClick={onLogOutClick}>Se déconnecter</LogOutBtn>
     </>
   );
 };

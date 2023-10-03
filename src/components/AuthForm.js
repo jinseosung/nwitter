@@ -1,5 +1,38 @@
 import { useState } from "react";
 import { authService } from "fbase";
+import styled from "styled-components";
+
+const Form = styled.form`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.5em;
+  margin-bottom: 1.3em;
+  width: 100%;
+`;
+
+const Input = styled.input`
+  width: 100%;
+  max-width: 320px;
+`;
+
+const SubmitInput = styled.input`
+  width: 100%;
+  max-width: 320px;
+  background-color: #00acee;
+  color: white;
+`;
+
+const Switch = styled.span`
+  display: block;
+  color: #04aaff;
+  cursor: pointer;
+  margin-top: 0.7em;
+  margin-bottom: 3.6em;
+  font-size: 12px;
+  text-decoration: underline;
+`;
 
 const AuthForm = () => {
   const [email, setEmail] = useState("");
@@ -38,8 +71,8 @@ const AuthForm = () => {
 
   return (
     <>
-      <form onSubmit={onSubmit}>
-        <input
+      <Form onSubmit={onSubmit}>
+        <Input
           name="email"
           type="text"
           placeholder="Email"
@@ -47,7 +80,7 @@ const AuthForm = () => {
           value={email}
           onChange={onChange}
         />
-        <input
+        <Input
           name="password"
           type="password"
           placeholder="Mot de passe"
@@ -55,15 +88,15 @@ const AuthForm = () => {
           value={password}
           onChange={onChange}
         />
-        <input
+        <SubmitInput
           type="submit"
           value={newAccount ? "Créer un compte" : "Se connecter"}
         />
         {error}
-      </form>
-      <span onClick={toggleAccount}>
+      </Form>
+      <Switch onClick={toggleAccount}>
         {newAccount ? "Se connecter" : "Créer un compte"}
-      </span>
+      </Switch>
     </>
   );
 };
