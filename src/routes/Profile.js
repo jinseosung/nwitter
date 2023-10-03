@@ -33,7 +33,7 @@ const Profile = ({ refreshUser, userObj }) => {
 
   const onLogOutClick = async () => {
     await authService.signOut();
-    navigate("/");
+    navigate(`${process.env.PUBLIC_URL}/`);
   };
   useEffect(() => {
     const getMyNweets = async () => {
