@@ -35,12 +35,12 @@ const Navigation = ({ userObj }) => {
     <Nav>
       <ListContainer>
         <li>
-          <Link to="/">
+          <Link to={`${process.env.PUBLIC_URL}/`}>
             <Icon icon={faTwitter} />
           </Link>
         </li>
         <li>
-          <Link to="/profile">
+          <Link to={`${process.env.PUBLIC_URL}/profile`}>
             <Icon icon={faUser} />
             <Span>
               Profile de&nbsp;
