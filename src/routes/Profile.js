@@ -64,7 +64,7 @@ const Profile = ({ refreshUser, userObj }) => {
   };
 
   return (
-    <>
+    <div style={{ paddingLeft: 35, paddingRight: 35 }}>
       <Form onSubmit={onSubmit}>
         <Input
           value={newDisplayName}
@@ -75,7 +75,7 @@ const Profile = ({ refreshUser, userObj }) => {
         <SubmitInput type="submit" value="Modifier mon profile" />
       </Form>
       <LogOutBtn onClick={onLogOutClick}>Se déconnecter</LogOutBtn>
-    </>
+    </div>
   );
 };
 

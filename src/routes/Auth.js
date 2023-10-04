@@ -49,7 +49,7 @@ const Auth = () => {
   };
 
   return (
-    <Container>
+    <Container style={{ paddingLeft: 35, paddingRight: 35 }}>
       <Icon icon={faTwitter} />
       <AuthForm />
       <Btns>

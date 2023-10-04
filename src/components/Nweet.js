@@ -26,12 +26,20 @@ const SubmitInput = styled.input`
 
 const NweetContainer = styled.div`
   display: flex;
+  align-items: center;
   width: 100%;
   background-color: white;
   border-radius: 10px;
   padding: 1.5em;
   position: relative;
   margin-bottom: 1.5em;
+`;
+
+const NweetImg = styled.img`
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  margin-right: 1.3em;
 `;
 
 const NweetText = styled.h4`
@@ -99,7 +107,7 @@ const Nweet = ({ nweetObj, isOwner }) => {
       ) : (
         <NweetContainer>
           {nweetObj.fileUrl && (
-            <img src={nweetObj.fileUrl} alt={nweetObj.text} />
+            <NweetImg src={nweetObj.fileUrl} alt={nweetObj.text} />
           )}
           <NweetText>{nweetObj.text}</NweetText>
           {isOwner && (

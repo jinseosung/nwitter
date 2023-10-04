@@ -17,7 +17,7 @@ const Home = ({ userObj }) => {
   }, []);
 
   return (
-    <div>
+    <div style={{ paddingLeft: 35, paddingRight: 35 }}>
       <NweetFactory userObj={userObj} />
       <div>
         {nweets &&
